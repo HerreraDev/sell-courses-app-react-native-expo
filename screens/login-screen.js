@@ -9,14 +9,16 @@ import {
 
 import React, { useState } from "react";
 import styles from "../css-styles/commom-styles";
+
 import Loader from "../components/loader";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/auth-context";
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("123123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+
   const navigation = useNavigation();
   const { onLogin } = useAuth();
 
@@ -34,48 +36,48 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        <View style={styles.content}>
-          <Image source={require("../assets/logo.jpg")} style={styles.image} />
-          <Text style={styles.title}>Iniciar Sesión</Text>
+    <View style={styles.container}>
+      <Image
+        source={require("../assets/logo.jpg")}
+        style={styles.image}
+        resizeMode="contain"
+      />
+      <Text style={[styles.title3, styles.alignSelfStart, styles["mb-16"]]}>
+        Iniciar Sesión
+      </Text>
 
-          <TextInput
-            style={styles.input}
-            placeholder="Correo Electronico"
-            keyboardType="email-address"
-            autoCapitalize="none"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Contraseña"
-            secureTextEntry
-            autoCapitalize="none"
-            value={password}
-            onChangeText={setPassword}
-          />
+      <TextInput
+        style={styles.input}
+        placeholder="Correo Electronico"
+        keyboardType="email-address"
+        autoCapitalize="none"
+        value={email}
+        onChangeText={setEmail}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Contraseña"
+        secureTextEntry
+        autoCapitalize="none"
+        value={password}
+        onChangeText={setPassword}
+      />
 
-          {loading ? (
-            <Loader />
-          ) : (
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={handleLogin}
-            >
-              <Text style={styles.buttonText}>Iniciar Sesión</Text>
-            </TouchableOpacity>
-          )}
+      {loading ? (
+        <Loader />
+      ) : (
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleLogin}>
+          <Text style={styles.buttonText}> Ingresar</Text>
+        </TouchableOpacity>
+      )}
 
-          <TouchableOpacity onPress={handleSignUp}>
-            <Text style={styles.title5}>
-              ¿No tienes una cuenta? Registrarse
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </ScrollView>
+      <TouchableOpacity onPress={handleSignUp} style={styles["mt-16"]}>
+        <Text style={styles.title5}>
+          ¿No tienes una cuenta?
+          <Text style={styles.accentLink}> Registrarse</Text>
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

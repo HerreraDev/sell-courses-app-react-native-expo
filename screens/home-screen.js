@@ -1,5 +1,13 @@
 import React, { useEffect } from "react";
-import { TouchableOpacity, ScrollView, Text } from "react-native";
+import {
+  TouchableOpacity,
+  ScrollView,
+  Text,
+  StyleSheet,
+  Image,
+  View,
+  StatusBar,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/auth-context";
 

@@ -8,9 +8,23 @@ import RegisterScreen from "./screens/register-screen";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import AuthContextProvider from "./context/auth-context";
+import {
+  useFonts,
+  Poppins_400Regular,
+  Poppins_700Bold,
+} from "@expo-google-fonts/poppins";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
+
+  let [fontsLoaded, fontError] = useFonts({
+    Poppins_400Regular,
+    Poppins_700Bold,
+  });
+
+  if (!fontsLoaded && !fontError) {
+    return null;
+  }
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -46,14 +60,7 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   safeArea: {
     flex: 1,
-    backgroundColor: "white", // Puedes ajustar el color de fondo según tus preferencias
   },
 });
