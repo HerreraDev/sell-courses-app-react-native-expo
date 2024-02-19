@@ -1,5 +1,4 @@
 import {
-  ScrollView,
   Image,
   Text,
   TextInput,
@@ -8,10 +7,10 @@ import {
   Alert,
 } from "react-native";
 import React, { useState } from "react";
-import styles, { colors } from "../css-styles/commom-styles";
+import styles from "../css-styles/commom-styles";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "../services/config";
-import Loader from "../components/loader";
+import Loader from "../components/shared/loader";
 import { doc, setDoc } from "firebase/firestore";
 import { useAuth } from "../context/auth-context";
 

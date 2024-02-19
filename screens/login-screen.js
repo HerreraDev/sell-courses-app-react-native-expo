@@ -1,16 +1,9 @@
-import {
-  ScrollView,
-  Image,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import React, { useState } from "react";
 import styles from "../css-styles/commom-styles";
 
-import Loader from "../components/loader";
+import Loader from "../components/shared/loader";
 import { useNavigation } from "@react-navigation/native";
 import { useAuth } from "../context/auth-context";
 
@@ -33,6 +26,12 @@ const LoginScreen = () => {
 
   const handleSignUp = () => {
     navigation.navigate("Register");
+  };
+
+  const handleTestLogin = () => {
+    setEmail("a@mail.com");
+    setPassword("123456");
+    handleLogin();
   };
 
   return (
@@ -76,6 +75,10 @@ const LoginScreen = () => {
           ¿No tienes una cuenta?
           <Text style={styles.accentLink}> Registrarse</Text>
         </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={handleTestLogin} style={styles["mt-16"]}>
+        <Text style={{ color: "red" }}> loginrapido</Text>
       </TouchableOpacity>
     </View>
   );

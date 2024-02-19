@@ -33,7 +33,6 @@ export const signUp = async (email, password, firstname) => {
 
 export const emailVerification = async () => {
   const user = auth.currentUser;
-  console.log(auth.currentUser);
 
   try {
     await user.sendEmailVerification().then(() => {

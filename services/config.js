@@ -3,12 +3,12 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDShIGTH81mmx0bjEDWiOEP6kFyStkR-WY",
-  authDomain: "app-juli-backend.firebaseapp.com",
-  projectId: "app-juli-backend",
-  storageBucket: "app-juli-backend.appspot.com",
-  messagingSenderId: "944658668006",
-  appId: "1:944658668006:web:f7802cd6b11c63ca22de27",
+  apiKey: "AIzaSyC5fB9y-Mj_xMnLTsMst1qVsS0V-6Fdl58",
+  authDomain: "despierta-tu-alma-universal.firebaseapp.com",
+  projectId: "despierta-tu-alma-universal",
+  storageBucket: "despierta-tu-alma-universal.appspot.com",
+  messagingSenderId: "332576914544",
+  appId: "1:332576914544:web:4d68e4b474df302c0b08b5",
 };
 
 const app = initializeApp(firebaseConfig);
