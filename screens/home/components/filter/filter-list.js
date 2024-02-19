@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Filter from "./filter";
 import { View } from "react-native";
 
 export default function FilterList(props) {
-  const filterList = props.filters.map((filter, index) => (
+  const [activeFilter, setActiveFilter] = useState("1");
+
+  const handleFilterChange = (filterId) => {
+    props.onFilterChange(filterId);
+    setActiveFilter(filterId);
+  };
+
+  const filterList = props.filters.map((filter) => (
     <Filter
       id={filter.id}
       key={filter.id}
       name={filter.name}
       source={filter.source}
-      isActive={index === 0}
+      isActive={filter.id === activeFilter}
+      onFilterChange={handleFilterChange}
     />
   ));
 
@@ -18,8 +26,7 @@ export default function FilterList(props) {
       style={{
         flexDirection: "row",
         paddingHorizontal: 20,
-        marginTop: 18,
-        marginBottom: 46,
+        marginTop: "10%",
       }}
     >
       {filterList}

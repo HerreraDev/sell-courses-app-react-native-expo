@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { TouchableOpacity, ScrollView, Text, View, Alert } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { ScrollView, Text, View } from "react-native";
 import { useAuth } from "../../context/auth-context";
 import FilterList from "./components/filter/filter-list";
 import CardList from "./components/card/card-list";
 import { db } from "../../services/config";
 import { collection, getDocs } from "firebase/firestore";
-import commonStyles from "../../css-styles/commom-styles";
+import homeStyles from "../../css-styles/home/home-styles";
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
-  const { user, onLogOut } = useAuth();
   const [filters, setFilters] = useState([]);
   const [cards, setCards] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState();
 
   useEffect(() => {
     const fetchCollectionData = async (collectionDataName) => {
@@ -28,6 +26,7 @@ const HomeScreen = () => {
             filters.push(auxData);
           });
           setFilters(filters);
+          setSelectedFilter(filters[0].id);
         } else {
           querySnapshot.forEach((doc) => {
             let auxData = doc.data();
@@ -40,31 +39,28 @@ const HomeScreen = () => {
       }
     };
 
-    fetchCollectionData("filtros");
     fetchCollectionData("videos");
+    fetchCollectionData("filtros");
   }, []);
 
-  const handleLogout = async () => {
-    try {
-      await onLogOut();
-      navigation.navigate("Login");
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error.message);
-    }
+  const handleFilterChange = (filterId) => {
+    setSelectedFilter(filterId);
   };
 
+  const filteredCards = cards.filter(
+    (card) => card.filterId === selectedFilter
+  );
+
   return (
-    <View style={commonStyles.container}>
-      <ScrollView horizontal>
-        <FilterList filters={filters} />
-      </ScrollView>
+    <View style={homeStyles.container}>
+      <View style={{ height: "20%" }}>
+        <ScrollView horizontal>
+          <FilterList filters={filters} onFilterChange={handleFilterChange} />
+        </ScrollView>
+      </View>
       <ScrollView>
-        <CardList cards={cards} />
+        <CardList cards={filteredCards} />
       </ScrollView>
-      <Text style={{ color: "red" }}>home {user ? user.displayName : ""}</Text>
-      <TouchableOpacity onPress={handleLogout}>
-        <Text style={{ color: "red" }}>Salir</Text>
-      </TouchableOpacity>
     </View>
   );
 };

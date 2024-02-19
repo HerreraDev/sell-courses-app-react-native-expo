@@ -13,6 +13,9 @@ import {
   Poppins_400Regular,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
+import BottomNavigationBar from "./components/UI/bottom-navigation-bar/bottom-navigation-bar";
+import VideoPlayer from "./screens/video-player/video-player";
+import Suscription from "./screens/suscription/suscription";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -52,7 +55,22 @@ export default function App() {
                 headerShown: false,
               }}
             />
+            <Stack.Screen
+              name="VideoPlayer"
+              component={VideoPlayer}
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="Suscription"
+              component={Suscription}
+              options={{
+                headerShown: false,
+              }}
+            />
           </Stack.Navigator>
+          <BottomNavigationBar />
         </AuthContextProvider>
       </NavigationContainer>
     </SafeAreaView>

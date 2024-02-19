@@ -17,7 +17,6 @@ export default function CardList(props) {
     <View
       style={{
         flexDirection: "column",
-        paddingHorizontal: 20,
       }}
     >
       {cardList}
