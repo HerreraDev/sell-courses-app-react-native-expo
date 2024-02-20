@@ -1,17 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image, TouchableOpacity, View, Text } from "react-native";
 import { useAuth } from "../../../context/auth-context";
 import bottomNavigationBarStyles from "../../../css-styles/bottom-navigation-bar/bottom-navigation-bar-styles";
 import { useNavigation } from "@react-navigation/native";
+import { useNavigationContext } from "../../../context/nagivation-context";
 
 export default function BottomNavigationBar() {
   const { user, onLogOut } = useAuth();
   const navigation = useNavigation();
-  const [activeRoute, setActiveRoute] = useState(1);
+  const { selectedRoute, setSelectedRoute } = useNavigationContext();
 
   const handleLogout = async () => {
     try {
-      setActiveRoute(1);
+      setSelectedRoute(1);
       await onLogOut();
       navigation.navigate("Login");
     } catch (error) {
@@ -20,17 +21,17 @@ export default function BottomNavigationBar() {
   };
 
   const handleRedirectHome = () => {
-    setActiveRoute(1);
+    setSelectedRoute(1);
     navigation.navigate("Home");
   };
 
   const handleRedirectVideoPlayer = () => {
-    setActiveRoute(2);
+    setSelectedRoute(2);
     navigation.navigate("VideoPlayer");
   };
 
   const handleRedirectSuscription = () => {
-    setActiveRoute(3);
+    setSelectedRoute(3);
     navigation.navigate("Suscription");
   };
 
@@ -43,7 +44,7 @@ export default function BottomNavigationBar() {
         <Image
           style={[
             bottomNavigationBarStyles.navigationButtonImage,
-            activeRoute === 1
+            selectedRoute === 1
               ? bottomNavigationBarStyles.navigationButtonImageIsActive
               : "",
           ]}
@@ -61,7 +62,7 @@ export default function BottomNavigationBar() {
         <Image
           style={[
             bottomNavigationBarStyles.navigationButtonImage,
-            activeRoute === 2
+            selectedRoute === 2
               ? bottomNavigationBarStyles.navigationButtonImageIsActive
               : "",
           ]}
@@ -79,7 +80,7 @@ export default function BottomNavigationBar() {
         <Image
           style={[
             bottomNavigationBarStyles.navigationButtonImage,
-            activeRoute === 3
+            selectedRoute === 3
               ? bottomNavigationBarStyles.navigationButtonImageIsActive
               : "",
           ]}

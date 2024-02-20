@@ -16,6 +16,7 @@ import {
 import BottomNavigationBar from "./components/UI/bottom-navigation-bar/bottom-navigation-bar";
 import VideoPlayer from "./screens/video-player/video-player";
 import Suscription from "./screens/suscription/suscription";
+import { NavigationProvider } from "./context/nagivation-context";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -33,44 +34,46 @@ export default function App() {
     <SafeAreaView style={styles.safeArea}>
       <NavigationContainer>
         <AuthContextProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Register"
-              component={RegisterScreen}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="VideoPlayer"
-              component={VideoPlayer}
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="Suscription"
-              component={Suscription}
-              options={{
-                headerShown: false,
-              }}
-            />
-          </Stack.Navigator>
-          <BottomNavigationBar />
+          <NavigationProvider>
+            <Stack.Navigator>
+              <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Register"
+                component={RegisterScreen}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="VideoPlayer"
+                component={VideoPlayer}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="Suscription"
+                component={Suscription}
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Navigator>
+            <BottomNavigationBar />
+          </NavigationProvider>
         </AuthContextProvider>
       </NavigationContainer>
     </SafeAreaView>

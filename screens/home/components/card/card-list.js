@@ -14,6 +14,7 @@ export default function CardList(props) {
       description={card.description}
       source={card.source}
       isPremium={!isPremium && index !== 0 ? true : false}
+      videoUrl={card.videoUrl}
     />
   ));
 
