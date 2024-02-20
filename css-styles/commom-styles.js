@@ -75,6 +75,15 @@ const commonStyles = StyleSheet.create({
   alignSelfStart: {
     alignSelf: "flex-start",
   },
+  androidShadow: {
+    elevation: 10,
+    shadowColor: colors.white,
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(128,128,128, 0.7)",
+    borderRadius: 8,
+  },
 });
 
 export default commonStyles;

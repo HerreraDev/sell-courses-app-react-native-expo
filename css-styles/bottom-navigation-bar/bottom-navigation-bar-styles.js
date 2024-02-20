@@ -22,13 +22,15 @@ const bottomNavigationBarStyles = StyleSheet.create({
   navigationButtonImage: {
     width: 18,
     height: 12,
-    backgroundColor: colors.primary,
     borderRadius: 8,
     padding: 14,
   },
   navigationButtonText: {
     fontFamily: fonts.regular,
     fontSize: 12,
+  },
+  navigationButtonImageIsActive: {
+    backgroundColor: colors.primary,
   },
 });
 

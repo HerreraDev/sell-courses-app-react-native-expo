@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { createContext } from "react";
 import { auth } from "../services/config";
-import { logOut, logIn, signUp } from "../services/auth";
+import { logOut, logIn, signUp, getUserIsPremium } from "../services/auth";
 import { useNavigation } from "@react-navigation/native";
 
 const AuthContext = createContext({
@@ -9,6 +9,7 @@ const AuthContext = createContext({
   onLogin: (email, password) => {},
   onLogOut: () => {},
   onRegister: (email, password, firstname) => {},
+  isPremium: false,
 });
 
 export const useAuth = () => {
@@ -23,20 +24,38 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const navigator = useNavigation();
+  const [isPremium, setIsPremium] = useState(false);
 
   useEffect(() => {
+    const checkUserPremium = async () => {
+      try {
+        if (user) {
+          const res = await getUserIsPremium(user.uid);
+          setIsPremium(res);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
     if (!user) {
       logOut().then(() => {
         navigator.navigate("Login");
       });
     }
+
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
       setUser(authUser);
+      if (authUser) {
+        checkUserPremium();
+      } else {
+        setIsPremium(false);
+      }
       setIsLoading(false);
     });
 
     return () => unsubscribe();
-  }, []);
+  }, [user]);
 
   return (
     <AuthContext.Provider
@@ -45,6 +64,7 @@ export const AuthContextProvider = ({ children }) => {
         onLogin: logIn,
         onLogOut: logOut,
         onRegister: signUp,
+        isPremium: isPremium,
       }}
     >
       {!isLoading && children}

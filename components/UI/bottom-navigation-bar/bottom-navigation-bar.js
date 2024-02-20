@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Image, TouchableOpacity, View, Text } from "react-native";
 import { useAuth } from "../../../context/auth-context";
 import bottomNavigationBarStyles from "../../../css-styles/bottom-navigation-bar/bottom-navigation-bar-styles";
@@ -7,9 +7,11 @@ import { useNavigation } from "@react-navigation/native";
 export default function BottomNavigationBar() {
   const { user, onLogOut } = useAuth();
   const navigation = useNavigation();
+  const [activeRoute, setActiveRoute] = useState(1);
 
   const handleLogout = async () => {
     try {
+      setActiveRoute(1);
       await onLogOut();
       navigation.navigate("Login");
     } catch (error) {
@@ -18,14 +20,17 @@ export default function BottomNavigationBar() {
   };
 
   const handleRedirectHome = () => {
+    setActiveRoute(1);
     navigation.navigate("Home");
   };
 
   const handleRedirectVideoPlayer = () => {
+    setActiveRoute(2);
     navigation.navigate("VideoPlayer");
   };
 
   const handleRedirectSuscription = () => {
+    setActiveRoute(3);
     navigation.navigate("Suscription");
   };
 
@@ -36,7 +41,12 @@ export default function BottomNavigationBar() {
         style={bottomNavigationBarStyles.navigationButton}
       >
         <Image
-          style={bottomNavigationBarStyles.navigationButtonImage}
+          style={[
+            bottomNavigationBarStyles.navigationButtonImage,
+            activeRoute === 1
+              ? bottomNavigationBarStyles.navigationButtonImageIsActive
+              : "",
+          ]}
           source={require("../../../assets/icons/home-icon.png")}
           resizeMode={"center"}
         />
@@ -49,7 +59,12 @@ export default function BottomNavigationBar() {
         style={bottomNavigationBarStyles.navigationButton}
       >
         <Image
-          style={bottomNavigationBarStyles.navigationButtonImage}
+          style={[
+            bottomNavigationBarStyles.navigationButtonImage,
+            activeRoute === 2
+              ? bottomNavigationBarStyles.navigationButtonImageIsActive
+              : "",
+          ]}
           source={require("../../../assets/icons/video-player-icon.png")}
           resizeMode={"center"}
         />
@@ -62,7 +77,12 @@ export default function BottomNavigationBar() {
         style={bottomNavigationBarStyles.navigationButton}
       >
         <Image
-          style={bottomNavigationBarStyles.navigationButtonImage}
+          style={[
+            bottomNavigationBarStyles.navigationButtonImage,
+            activeRoute === 3
+              ? bottomNavigationBarStyles.navigationButtonImageIsActive
+              : "",
+          ]}
           source={require("../../../assets/icons/suscription-icon.png")}
           resizeMode={"center"}
         />

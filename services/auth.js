@@ -1,12 +1,12 @@
-import { auth } from "./config";
+import { auth, db } from "./config";
 import { Alert } from "react-native";
 import {
   createUserWithEmailAndPassword,
-  sendEmailVerification,
   signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
+import { collection, query, where, getDocs } from "firebase/firestore";
 
 export const signUp = async (email, password, firstname) => {
   try {
@@ -65,4 +65,22 @@ export const logIn = (email, password) => {
 
 export const logOut = () => {
   return signOut(auth);
+};
+
+export const getUserIsPremium = async (userId) => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "users"));
+    let isPremium = false;
+
+    querySnapshot.forEach((doc) => {
+      let auxData = doc.data();
+      if (auxData.uid === userId) {
+        isPremium = auxData.isPremium;
+      }
+    });
+
+    return isPremium;
+  } catch (error) {
+    console.error(error);
+  }
 };

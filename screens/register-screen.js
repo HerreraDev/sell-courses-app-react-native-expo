@@ -35,9 +35,10 @@ const RegisterScreen = () => {
           email: email,
           uid: user.uid,
           photoUrl: "",
+          isPremium: false,
         });
 
-        navigation.navigate("Login");
+        navigation.navigate("Home");
       }
     } catch (error) {
       Alert.alert(error.message);

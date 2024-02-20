@@ -58,7 +58,10 @@ const HomeScreen = () => {
           <FilterList filters={filters} onFilterChange={handleFilterChange} />
         </ScrollView>
       </View>
-      <ScrollView>
+      <ScrollView
+        keyboardShouldPersistTaps="handled"
+        contentContainerStyle={{ paddingBottom: 68 }}
+      >
         <CardList cards={filteredCards} />
       </ScrollView>
     </View>
