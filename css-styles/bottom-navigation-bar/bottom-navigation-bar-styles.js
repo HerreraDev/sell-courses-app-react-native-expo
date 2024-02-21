@@ -6,6 +6,7 @@ const bottomNavigationBarStyles = StyleSheet.create({
     backgroundColor: colors.white,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     padding: 8,
     position: "absolute",
     bottom: 0,
@@ -15,12 +16,13 @@ const bottomNavigationBarStyles = StyleSheet.create({
     marginBottom: 16,
     borderRadius: 8,
     paddingHorizontal: 24,
+    height: "14%",
   },
   navigationButton: {
     alignItems: "center",
   },
   navigationButtonImage: {
-    width: 18,
+    width: 60,
     height: 12,
     borderRadius: 8,
     padding: 14,
