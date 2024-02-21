@@ -10,6 +10,7 @@ const AuthContext = createContext({
   onLogOut: () => {},
   onRegister: (email, password, firstname) => {},
   isPremium: false,
+  setIsPremium: () => {},
 });
 
 export const useAuth = () => {
@@ -65,6 +66,7 @@ export const AuthContextProvider = ({ children }) => {
         onLogOut: logOut,
         onRegister: signUp,
         isPremium: isPremium,
+        setIsPremium: setIsPremium,
       }}
     >
       {!isLoading && children}

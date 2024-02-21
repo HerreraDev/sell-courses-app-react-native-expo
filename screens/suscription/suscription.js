@@ -1,13 +1,9 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ScrollView,
-  Button,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import React from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import suscriptionStyles from "../../css-styles/suscription/suscription-styles";
+import { useAuth } from "../../context/auth-context";
+import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../services/config";
 
 export default function Suscription() {
   const benefits = [
@@ -15,7 +11,22 @@ export default function Suscription() {
     { id: 2, text: "Canal de consultas personalizadas" },
   ];
 
-  const [suscriptionState, setSuscriptionState] = useState(false);
+  const { isPremium, setIsPremium, user } = useAuth();
+
+  const userRef = doc(db, "users", user ? user.uid : "x");
+
+  const handleSuscribe = async () => {
+    try {
+      await updateDoc(userRef, {
+        isPremium: true,
+        hasBecomePremium: serverTimestamp(),
+      });
+
+      setIsPremium(true);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <View style={suscriptionStyles.container}>
@@ -31,7 +42,7 @@ export default function Suscription() {
           <Text style={suscriptionStyles.suscriptionCardHeaderPrice}>
             $2000 /mes
           </Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleSuscribe}>
             <Text style={suscriptionStyles.suscriptionCardHeaderButton}>
               Suscribirse
             </Text>
@@ -57,8 +68,7 @@ export default function Suscription() {
           <Text style={suscriptionStyles.suscriptionCardFooterText}>
             Estado de la suscripción:
             <Text style={suscriptionStyles.suscriptionCardFooterBenefitState}>
-              {" "}
-              {suscriptionState ? "Activa" : "Sin activar"}
+              {isPremium ? " Activa" : " Sin activar"}
             </Text>
           </Text>
         </View>
