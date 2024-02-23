@@ -1,11 +1,21 @@
-import React from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, TouchableOpacity, Image, Alert } from "react-native";
 import suscriptionStyles from "../../css-styles/suscription/suscription-styles";
 import { useAuth } from "../../context/auth-context";
-import { doc, updateDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  updateDoc,
+  serverTimestamp,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 import { db } from "../../services/config";
+import Loader from "../../components/shared/loader";
 
 export default function Suscription() {
+  const [suscriptionPrice, setSuscriptionPrice] = useState(0);
+  const [loading, setIsLoading] = useState(false);
+
   const benefits = [
     { id: 1, text: "Contenido exclusivo" },
     { id: 2, text: "Canal de consultas personalizadas" },
@@ -28,6 +38,29 @@ export default function Suscription() {
     }
   };
 
+  useEffect(() => {
+    const fetchCollectionData = async (collectionDataName) => {
+      setIsLoading(true);
+      try {
+        let auxDataPrice = 0;
+        const querySnapshot = await getDocs(collection(db, collectionDataName));
+
+        querySnapshot.forEach((doc) => {
+          let auxData = doc.data();
+          auxDataPrice = auxData;
+        });
+        setSuscriptionPrice(auxDataPrice.precio);
+        setIsLoading(false);
+      } catch (error) {
+        Alert.alert("Error al obtener precio de la suscripción");
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchCollectionData("precioPremium");
+  }, []);
+
   return (
     <View style={suscriptionStyles.container}>
       {/* <ScrollView> */}
@@ -40,13 +73,17 @@ export default function Suscription() {
             ¡Accede a todo el contenido!
           </Text>
           <Text style={suscriptionStyles.suscriptionCardHeaderPrice}>
-            $2000 /mes
+            ${suscriptionPrice} /mes
           </Text>
-          <TouchableOpacity onPress={handleSuscribe}>
-            <Text style={suscriptionStyles.suscriptionCardHeaderButton}>
-              Suscribirse
-            </Text>
-          </TouchableOpacity>
+          {loading ? (
+            <Loader />
+          ) : (
+            <TouchableOpacity onPress={handleSuscribe}>
+              <Text style={suscriptionStyles.suscriptionCardHeaderButton}>
+                Suscribirse
+              </Text>
+            </TouchableOpacity>
+          )}
         </View>
         <View style={suscriptionStyles.suscriptionCardBody}>
           {benefits.map((benefit) => (
