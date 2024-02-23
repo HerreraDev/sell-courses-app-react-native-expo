@@ -67,6 +67,9 @@ export const logIn = (email, password) => {
       if (error.code === "auth/invalid-credential") {
         Alert.alert("Email o contraseña incorrectas");
       }
+      if (error.code === "auth/invalid-email") {
+        Alert.alert("El formato del email es incorrecto");
+      }
       console.error(error.code);
     });
 };

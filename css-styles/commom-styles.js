@@ -84,6 +84,15 @@ const commonStyles = StyleSheet.create({
     backgroundColor: "rgba(128,128,128, 0.7)",
     borderRadius: 8,
   },
+  errorMessage: {
+    marginTop: 0,
+    color: "red",
+    marginBottom: 16,
+  },
+  errorMessageInput: {
+    borderColor: "red",
+    marginBottom: 0,
+  },
 });
 
 export default commonStyles;
