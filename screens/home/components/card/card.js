@@ -10,23 +10,38 @@ export default function Card(props) {
   const { setSelectedRoute } = useNavigationContext();
 
   const handleCardClick = () => {
-    setSelectedRoute(2);
-    navigation.navigate("VideoPlayer", {
-      videoProps: {
-        id: props.id,
-        title: props.title,
-        description: props.description,
-        source: props.source,
-        videoUrl: props.videoUrl,
-      },
-    });
+    if (props.isSpecial) return;
+    if (!props.isPremium) {
+      setSelectedRoute(2);
+      navigation.navigate("VideoPlayer", {
+        videoProps: {
+          id: props.id,
+          title: props.title,
+          description: props.description,
+          source: props.source,
+          videoUrl: props.videoUrl,
+        },
+      });
+    }
   };
 
   return (
     <View id={props.id} style={[cardStyles.card]} onTouchEnd={handleCardClick}>
       <View style={cardStyles.cardInfoContainer}>
-        <Text style={cardStyles.cardTitle}>{props.title}</Text>
-        <Text style={cardStyles.cardDescription}>{props.description}</Text>
+        <Text
+          style={cardStyles.cardTitle}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {props.title}
+        </Text>
+        <Text
+          style={cardStyles.cardDescription}
+          numberOfLines={2}
+          ellipsizeMode="tail"
+        >
+          {props.description}
+        </Text>
       </View>
       <View style={cardStyles.cardImageContainer}>
         <Image

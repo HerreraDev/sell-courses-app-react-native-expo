@@ -26,6 +26,7 @@ export default function Suscription() {
   const userRef = doc(db, "users", user ? user.uid : "x");
 
   const handleSuscribe = async () => {
+    if (isPremium) return;
     try {
       await updateDoc(userRef, {
         isPremium: true,
@@ -80,7 +81,7 @@ export default function Suscription() {
           ) : (
             <TouchableOpacity onPress={handleSuscribe}>
               <Text style={suscriptionStyles.suscriptionCardHeaderButton}>
-                Suscribirse
+                {isPremium ? "Suscripción Activa" : "Suscribirse"}
               </Text>
             </TouchableOpacity>
           )}

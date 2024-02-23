@@ -19,10 +19,12 @@ const cardStyles = StyleSheet.create({
     fontFamily: fonts.regular,
     fontSize: 16,
     marginBottom: 8,
+    overflow: "hidden",
   },
   cardDescription: {
     fontFamily: fonts.regular,
     fontSize: 12,
+    overflow: "hidden",
   },
   cardImageContainer: {
     width: "30%",

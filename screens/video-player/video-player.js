@@ -86,7 +86,6 @@ export default function VideoPlayer() {
             onError={(error) => {
               console.error(error);
             }}
-            shouldPlay={true}
           />
         )}
       </View>

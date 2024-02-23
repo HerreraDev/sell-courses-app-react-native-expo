@@ -34,6 +34,7 @@ export default function CardList(props) {
           source={
             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeCckQy7XXljljoObSEJ5OEvNpaozaodaw2nAsoxqMenvH7lRGUm9QWpICP8o8TTeS2SM&usqp=CAU"
           }
+          isSpecial={true}
         />
       ) : (
         ""
