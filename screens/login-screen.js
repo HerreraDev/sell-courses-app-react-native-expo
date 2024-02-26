@@ -137,10 +137,6 @@ const LoginScreen = () => {
           <Text style={styles.accentLink}> Registrarse</Text>
         </Text>
       </TouchableOpacity>
-
-      <TouchableOpacity onPress={handleTestLogin} style={styles["mt-16"]}>
-        <Text style={{ color: "red" }}> loginrapido</Text>
-      </TouchableOpacity>
     </View>
   );
 };

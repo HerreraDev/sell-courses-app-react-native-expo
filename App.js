@@ -16,9 +16,21 @@ import {
 import BottomNavigationBar from "./components/UI/bottom-navigation-bar/bottom-navigation-bar";
 import VideoPlayer from "./screens/video-player/video-player";
 import Suscription from "./screens/suscription/suscription";
+import SuscriptionSuccess from "./screens/suscription/suscription-success";
 import { NavigationProvider } from "./context/nagivation-context";
+import * as Linking from "expo-linking";
+
+const prefix = Linking.createURL("/");
 
 export default function App() {
+  const linking = {
+    prefixes: [prefix],
+    config: {
+      screens: {
+        SuscriptionSuccess: "SuscriptionSuccess",
+      },
+    },
+  };
   const Stack = createNativeStackNavigator();
 
   let [fontsLoaded, fontError] = useFonts({
@@ -32,7 +44,7 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <NavigationContainer>
+      <NavigationContainer linking={linking}>
         <AuthContextProvider>
           <NavigationProvider>
             <Stack.Navigator>
@@ -67,6 +79,13 @@ export default function App() {
               <Stack.Screen
                 name="Suscription"
                 component={Suscription}
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="SuscriptionSuccess"
+                component={SuscriptionSuccess}
                 options={{
                   headerShown: false,
                 }}

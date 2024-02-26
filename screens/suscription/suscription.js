@@ -11,6 +11,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../../services/config";
 import Loader from "../../components/shared/loader";
+import { handleIntegrationMP } from "../../services/mercado-pago";
+import { openBrowserAsync } from "expo-web-browser";
 
 export default function Suscription() {
   const [suscriptionPrice, setSuscriptionPrice] = useState(0);
@@ -27,16 +29,12 @@ export default function Suscription() {
 
   const handleSuscribe = async () => {
     if (isPremium) return;
-    try {
-      await updateDoc(userRef, {
-        isPremium: true,
-        hasBecomePremium: serverTimestamp(),
-      });
 
-      setIsPremium(true);
-    } catch (error) {
-      console.error(error);
+    const data = await handleIntegrationMP({ price: suscriptionPrice });
+    if (!data) {
+      return console.error("Ha ocurrido un error");
     }
+    openBrowserAsync(data);
   };
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "despiertatualmauniversal",
     "name": "juli-expo-app",
     "slug": "juli-expo-app",
     "version": "1.0.0",
