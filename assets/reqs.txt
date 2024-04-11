@@ -1,0 +1,22 @@
+APP:
+
+Precio: 200USD al valor del día del pago basandonos en el dolar blue. Se paga mitad antes de comenzar y mitad restante al finalizar.
+
+Pasos:
+
+1 - Hacer diseño hasta estar de acuerdo
+2 - Comenzar a programar la aplicacion
+3 - Enseñar a usarla
+4 - Publicarla en la playstore
+
+https://www.figma.com/file/R9oPa7El4JUeiy1imVVhiM/Untitled?type=design&node-id=1-889&mode=design&t=p2SAbxdTuIzl8nCw-0
+
+Colores: 
+
+dor corona: #BA8744
+dor : #ffbf00
+dor claro: #ffcf40
+
+
+magomerlinmagico777@gmail.com
+Cristo.1990
